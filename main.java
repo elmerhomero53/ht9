@@ -27,27 +27,27 @@ public class main {
         int op = 0; 
         //Declaracion del factory
         Factory fac = new Factory();
-        
+        Scanner scan = new Scanner(System.in);
         SplayTree<String,String> SPTree = null;
         RedBlackBST<String,String> RBTree = null;
-        
-        Scanner sc1 = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
-        String entry="";
+        String arbol="";
         
         //Realizara este ciclo hasta que el usuario ingrese el numero 1 o 2
         do {
-        System.out.println("¿Cual deseas usar? (Solo numeros) \n");
+        System.out.println("Por favor, verifique que los archivos se llamen: ");
+        System.out.println("'texto.txt' el que se quiere traducir");
+        System.out.println("''Spanish.txt' el diccionario");
+        System.out.println("ï¿½Cual deseas usar? (ingrese el numero)\n");
         System.out.println("1. SplayTree");
         System.out.println("2. RedBlackTree");
-         entry = sc1.nextLine();
+         arbol = scan.nextLine();
         
          
-        }while(Integer.parseInt(entry)!=1 && Integer.parseInt(entry)!=2 );
+        }while(Integer.parseInt(arbol)!=1 && Integer.parseInt(arbol)!=2 );
         
         Object Tree;
         //Dependiendo de la opcion ingresada del usuario se usara la adecuada implementacion
-            switch(entry){            
+            switch(arbol){            
             case "1":                         
                 SPTree = (SplayTree)fac.getImp("SplayTree"); 
                 break;
@@ -64,10 +64,8 @@ public class main {
 
             try {                
                 StringBuilder sb = new StringBuilder();
-                String line = "";  
-                String line2 = "";                                                
-                String english = "";
-                String spanish = "";                
+                String line,line2,english, spanish;  
+                line = line2 = english = spanish = "";                
                //Traducira el mensaje encontrado en el archivo texto.txt
                 
                 long startTimeSearch=System.nanoTime(); //Empieza a contar el tiempo de ejecucion del lector de datos
@@ -90,8 +88,7 @@ public class main {
                                     spanish = line2; //sino se encuentra una , o un ; 
                                 }                                
                             }
-                            System.out.println(english +", "+ spanish); 
-                            if(entry.equals("1")){
+                            if(arbol.contains("1")){
                                 SPTree.put(english, spanish);
                             }else{
                                 RBTree.put(english,spanish);
@@ -102,67 +99,49 @@ public class main {
                                       
                 }
                 long endTimeSearch = System.nanoTime()-startTimeSearch; //Termina el conteo de tiempo y lo muestra
-                System.out.println("\nTiempo de procesamiento de datos "+endTimeSearch+"\n");
-                System.out.println("¿Que desea hacer?\n");
-                System.out.println("1. Traducir el archivo guardado como texto.txt");
-                System.out.println("2. Salir");
-                op = sc1.nextInt();               
-                while(op != 2){
-                	//Profiller de la traduccion
-                	long startTime = System.nanoTime();
-                    if(op == 1){
-                        String translator = "";
-                        String traductor = "";
-                        //Se lee el archivo deseado a traducir guardado como texto.txt
-                        File spanishTxt = new File ("texto.txt");
+                System.out.println("\nTiempo de procesamiento de datos "+endTimeSearch+"\n");             
+                //Profiler de la traduccion
+            	long startTime = System.nanoTime();
+                String translator = "";
+                String traductor = "";                        //Se lee el archivo deseado a traducir guardado como texto.txt
+                File spanishTxt = new File ("texto.txt");
+                FileReader fr = new FileReader (spanishTxt);
+                BufferedReader br1 = new BufferedReader(fr);
+                String linea = "";
+                Scanner scanner = new Scanner(fr);
+                String word = "";
 
-                        FileReader fr = new FileReader (spanishTxt);
-                        BufferedReader br1 = new BufferedReader(fr);
-                        String linea = "";
-                        Scanner scanner = new Scanner(fr);
-                        String word = "";
-        
-                        while (scanner.hasNextLine()) {
-                            linea += scanner.nextLine();
-                            word = linea.replaceAll("\n", " ");
-                        }
-                        fr.close();
-                        br1.close();
-                        //Separa las palabras encontradas y su traduccion
-                        String data[] = word.split(" ");
-                        for(int i = 0; i < data.length;i++){
-                            word = data[i];
-                            word = word.toUpperCase();
-                            String prueba = "";
-                            if(entry.equals("1")){
-                                prueba = SPTree.get(word);
-                            }else{
-                                prueba = RBTree.get(word);
-                            }                             
-                            if(prueba == null){
-                                prueba = "*" + word + "*";
-                            }
-                            translator = translator + " " + prueba + " ";
-                        }
-                        System.out.println("Traduccion: ");
-                        System.out.println("\n"+translator+"\n");
-                        long endTime =System.nanoTime()-startTime;//Final del profiller de traduccion y muestra el tiempo en el que se realizo
-                        System.out.println("Tiempo de traduccion: "+ endTime+" nanosegundos\n");
-                        
-                        
-                    }else{
-                        System.out.println("No ha ingresado una opcion valida");
-                    }    
-                    System.out.println("¿Que desea hacer?\n");
-                    System.out.println("1. Traducir el archivo guardado como texto.txt");
-                    System.out.println("2. Salir");
-                op = sc1.nextInt();
+                while (scanner.hasNextLine()) {
+                    linea += scanner.nextLine();
+                    word = linea.replaceAll("\n", " ");
                 }
+                fr.close();
+                br1.close();
+                //Separa las palabras encontradas y su traduccion
+                String data[] = word.split(" ");
+                for(int i = 0; i < data.length;i++){
+                    word = data[i];
+                    word = word.toUpperCase();
+                    String prueba = "";
+                    if(arbol.equals("1")){
+                        prueba = SPTree.get(word);
+                    }else{
+                        prueba = RBTree.get(word);
+                    }                             
+                    if(prueba == null){
+                        prueba = "*" + word + "*";
+                    }
+                    translator = translator + " " + prueba + " ";
+                }
+                System.out.println("Traduccion: ");
+                System.out.println("\n"+translator+"\n");
+                long endTime =System.nanoTime()-startTime;//Final del profiller de traduccion y muestra el tiempo en el que se realizo
+                System.out.println("Tiempo de traduccion: "+ endTime+" nanosegundos\n");
                 
             }
             finally{
                 br.close();
-                System.out.println("¡Feliz dia!");
+                System.out.println("ï¿½Feliz dia!");
             }  
         
         
