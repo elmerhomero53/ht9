@@ -1,6 +1,6 @@
 /**
  * @author Marco Ramirez 19588
- * @author Jose Ramos 
+ * @author Jose Ramos 171448
  * @version Final
  * @date 25/04/20
  * 
@@ -72,17 +72,17 @@ public class main {
                 while ((line=br.readLine())!=null) { //Se obtiene el primer significado en espanol unicamente.
                     sb.append(line);
                     sb.append(System.lineSeparator()); 
-                    line = line + " "; //Concatenado para que el ultimo valor sea leido sin problemas
+                    line += " "; //Concatenado para que el ultimo valor sea leido sin problemas
                                        //por substring      
                     for(int i=1;i<line.length();i++){
                         String iter = line.substring((i-1), i); //iterador que toma el valor de cada letra de la linea
                         if(iter.equals("\t")){
                             english = line.substring(0, i-1).toUpperCase(); //se obtiene la subcadena antes de " "  
                             line2 = line.substring(i, line.length()).toUpperCase(); //se obtiene la subcadena luego de " "                            
-                            for(int e=1;e<line2.length();e++){
-                                String iter2 = line2.substring((e-1), e);
+                            for(int i2=1;i2<line2.length();i2++){
+                                String iter2 = line2.substring((i2-1), i2);
                                 if(iter2.equals(";")||iter2.equals(",")){
-                                    spanish = line2.substring(0, e-1).toUpperCase(); //se obtiene la subcadena antes de , o ;  
+                                    spanish = line2.substring(0, i2-1).toUpperCase(); //se obtiene la subcadena antes de , o ;  
                                     break;
                                 }else{
                                     spanish = line2; //sino se encuentra una , o un ; 
