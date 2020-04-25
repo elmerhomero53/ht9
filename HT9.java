@@ -1,9 +1,15 @@
 /**
  * @author Marco Ramirez 19588
- * @author 
+ * @author Jose Ramos 
+ * @version Final
+ * @date 25/04/20
  * 
+ * Hoja de trabajo 9
+ * Universidad del Valle de Guatemala
+ * Algoritmos y estructura de datos 2020
  * 
  */
+
 
 import java.io.BufferedReader;
 import java.io.File;
