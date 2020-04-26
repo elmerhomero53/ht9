@@ -120,18 +120,17 @@ public class main {
                 //Separa las palabras encontradas y su traduccion
                 String data[] = word.split(" ");
                 for(int i = 0; i < data.length;i++){
-                    word = data[i];
-                    word = word.toUpperCase();
-                    String prueba = "";
+                    word = data[i].toUpperCase();
+                    String lambda = "";
                     if(arbol.equals("1")){
-                        prueba = SPTree.get(word);
+                        lambda = SPTree.get(word);
                     }else{
-                        prueba = RBTree.get(word);
+                        lambda = RBTree.get(word);
                     }                             
-                    if(prueba == null){
-                        prueba = "*" + word + "*";
+                    if(lambda == null){
+                        lambda = "*" + word + "*";
                     }
-                    translator = translator + " " + prueba + " ";
+                    translator += " " + lambda + " ";
                 }
                 System.out.println("Traduccion: ");
                 System.out.println("\n"+translator+"\n");
